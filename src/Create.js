@@ -311,7 +311,7 @@ const Create = () => {
         <div className="container-lg mint-single">
           <div className="row page-heading-container">
             <div className="col-sm-12 col-md-8">
-              <h2 className="section-heading">Create Master NFT</h2>
+              <h2 className="section-heading">Crear evento</h2>
             </div>
           </div>
           {/* <form onSubmit={handleSubmit(onSubmit)}> */}
@@ -353,7 +353,7 @@ const Create = () => {
               <div className="col-sm-12 col-md-7">
                 <div className="form-section">
                   <div className="form-elements-container">
-                    <div className="white-form-group">
+                    {/* <div className="white-form-group">
                       <label htmlFor="email" className="form-label">
                         Network*
                       </label>
@@ -367,10 +367,10 @@ const Create = () => {
                         <option value="testnet">Testnet</option>
                         <option value="mainnet-beta">Mainnet</option>
                       </select>
-                    </div>
+                    </div> */}
                     <div className="white-form-group">
                       <label className="form-label" htmlFor="name">
-                        Name*
+                        Nombre del evento*
                       </label>
                       <input
                         type="text"
@@ -384,14 +384,14 @@ const Create = () => {
                           setName(e.target.value);
                         }}
                         className="form-control"
-                        placeholder="Enter NFT Name"
+                        placeholder="Nombre del evento"
                         required
                       />
                       <small className="error-msg">{nameErr}</small>
                     </div>
                     <div className="white-form-group">
                       <label className="form-label" htmlFor="symbol">
-                        Symbol*
+                        Símbolo del evento*
                       </label>
                       <input
                         type="text"
@@ -405,7 +405,7 @@ const Create = () => {
                           setSymbol(e.target.value);
                         }}
                         className="form-control"
-                        placeholder="Enter NFT Symbol"
+                        placeholder="Símbolo"
                         required
                       />
                       <small className="error-msg">{symErr}</small>
@@ -427,11 +427,11 @@ const Create = () => {
                     </div> */}
                     <div className="white-form-group">
                       <label className="form-label" htmlFor="maxSupply">
-                        Max Supply*
+                        Número de entradas*
                       </label>
                       <br />
                       <label className="form-label sub-label" htmlFor="name">
-                        Keep it 0 if you want one of a kind NFT.
+                        Si lo dejas en 0, tendrás sólo una entrada
                       </label>
                       <input
                         type="number"
@@ -455,12 +455,11 @@ const Create = () => {
                     </div>
                     <div className="white-form-group">
                       <label htmlFor="bio" className="form-label">
-                        Description*
+                        Descripción*
                       </label>
                       <br />
                       <label className="form-label sub-label" htmlFor="name">
-                        The description will be included on the item's detail
-                        page underneath its image.
+                        Descripción del evento
                       </label>
                       <textarea
                         name="desc"
@@ -472,7 +471,7 @@ const Create = () => {
                           setDesc(e.target.value);
                         }}
                         className="form-control"
-                        placeholder="Type a small story"
+                        placeholder="Descripción"
                         rows="5"
                         required
                       ></textarea>
@@ -481,7 +480,7 @@ const Create = () => {
 
                     <div className="white-form-group">
                       <label htmlFor="email" className="form-label">
-                        Attributes*
+                        Atributos*
                       </label>
                       
                       <div className="row">
@@ -649,7 +648,7 @@ const Create = () => {
                     </div> */}
                     <div className="white-form-group">
                       <label className="form-label" htmlFor="name">
-                        External Link
+                        Link externo
                       </label>
 
                       <input
@@ -668,7 +667,7 @@ const Create = () => {
                         type="submit"
                         onClick={handleUpload}
                       >
-                        Submit
+                        Crear evento
                       </button>
                     </div>
                     <small className="mt-1 error-msg">{mainErr}</small>

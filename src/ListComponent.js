@@ -279,7 +279,7 @@ const ListAll = () => {
             <div className="row">
               <div className="col-9">
                 <h2 className="section-heading">
-                  {loaded && `${nfts.length} NFT(s) Found`}
+                  {loaded && `${nfts.length} Evento(s) creados`}
                 </h2>
               </div>
               <div className="col-3">
@@ -360,7 +360,7 @@ const ListAll = () => {
                             )}
                           </div> */}
                           <div className="col-12 col-xl-6 pt-1 px-3">
-                            {(conn_wall === walletId && network==='devnet')?(mpListings.includes(nft.mint))?<div className="white-button-container-sm"><button disabled>Listed</button></div>:<div className="white-button-container-sm disabled" ><button onClick={() => lister(nft.mint,nft.name,nft.cached_image_uri)}>List</button></div>:""}
+                            {(conn_wall === walletId && network==='devnet')?(mpListings.includes(nft.mint))?<div className="white-button-container-sm"><button disabled>En venta</button></div>:<div className="white-button-container-sm disabled" ><button onClick={() => lister(nft.mint,nft.name,nft.cached_image_uri)}>Vender</button></div>:""}
                            
                           </div>
                         </div>

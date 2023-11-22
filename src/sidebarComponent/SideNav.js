@@ -123,7 +123,7 @@ const SideNav = () => {
                 <img src={dashIcon} alt="dashboard" />
               </div>
               <div className="col-9">
-                <p>My NFTs</p>
+                <p>Mis eventos</p>
               </div>
             </div>
         </Link>
@@ -134,7 +134,7 @@ const SideNav = () => {
                 <img src={createIcon} alt="Create" />
               </div>
               <div className="col-9">
-                <p>Create NFT</p>
+                <p>Crear evento</p>
               </div>
             </div>
         </Link>
@@ -144,7 +144,7 @@ const SideNav = () => {
                 <img src={markerPlaceIcon} alt="Create" />
               </div>
               <div className="col-9">
-                <p>Marketplace</p>
+                <p>Eventos en venta</p>
               </div>
             </div>
         </Link>
@@ -154,7 +154,7 @@ const SideNav = () => {
                 <img src={transferIcon} alt="Create" />
               </div>
               <div className="col-9">
-                <p>Transfer</p>
+                <p>Transferir entrada</p>
               </div>
             </div>
         </Link>
@@ -164,7 +164,7 @@ const SideNav = () => {
                 <img src={myListingIcon} alt="listing" />
               </div>
               <div className="col-9">
-                <p>My Listings</p>
+                <p>Mis eventos en venta</p>
               </div>
             </div>
         </Link>
@@ -174,7 +174,7 @@ const SideNav = () => {
                 <img src={historyIcon} alt="history" />
               </div>
               <div className="col-9">
-                <p>History</p>
+                <p>Historial</p>
               </div>
             </div>
         </Link>
