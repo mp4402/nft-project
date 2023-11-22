@@ -69,7 +69,7 @@ function App() {
         
                 <Route exact path="*" element={<ConnectWallet />} />
               </Routes>
-              <Footer />
+              
             </Router>
           </NetworkContext.Provider>
         </WalletContext.Provider>

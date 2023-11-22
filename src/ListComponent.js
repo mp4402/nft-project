@@ -50,7 +50,10 @@ const ListAll = () => {
       const endPoint = process.env.REACT_APP_URL_EP;
       const marketplaceAddress = process.env.REACT_APP_MARKPLACE; 
       setMssg("");
-
+      console.log("PARAMETROS DE MARKETPLACE --------------------------------------------")
+      console.log(xKey)
+      console.log(endPoint)
+      console.log(marketplaceAddress)
       let nftUrl = `${endPoint}marketplace/active_listings?network=devnet&marketplace_address=${marketplaceAddress}`;
 
       axios({
@@ -65,6 +68,7 @@ const ListAll = () => {
           // Handle the response from backend here
           .then((res) => {
             console.log(res.data);
+            console.log("SIIIIIIIIIIIIIIIIIIIIII")
             if(res.data.success === true)
             {
               setGotListings(res.data.result);
@@ -192,7 +196,7 @@ const ListAll = () => {
         const xKey = process.env.REACT_APP_API_KEY;
         const endPoint = process.env.REACT_APP_URL_EP;
         const marketplaceAddress = process.env.REACT_APP_MARKPLACE;
-        
+        console.log("PASEEEEEEEEEEEEEEEEEEEEEEE DEEEE AQUIIIIIIIIIIIIIIIIIII")
         if(listingPrice === 0)
         {
           setErrMessg('Value must be a number greater than 0')
@@ -200,7 +204,8 @@ const ListAll = () => {
         else
         {
           let nftUrl = `${endPoint}marketplace/list`;
-
+          console.log("PASEEEEEEEEEEEEEEEEEEEEEEE DEEEE AQUIIIIIIIIIIIIIIIIIII22222222222222")
+          console.log(listingPrice)
           axios({
               // Endpoint to list
               url: nftUrl,
@@ -241,6 +246,7 @@ const ListAll = () => {
               })
               // Catch errors if any
               .catch((err) => {
+                console.log("PASEEEEEEEEEEEEEEEEEEEEEEE DEEEE ERRRRRORRRRRRRRR")
                 console.warn(err);
                 setErrMessg(err.message);
                 setIsListing(false);

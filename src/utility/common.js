@@ -43,20 +43,28 @@ export async function connectTheWallet()
 
 export async function signAndConfirmTransaction(network,transaction,callback)
 {
+    console.log("----------------Segundo1---------------------------------------")
     const phantom = new PhantomWalletAdapter();
+    console.log("----------------Segundo2---------------------------------------")
     await phantom.connect();
+    console.log("----------------Segundo3---------------------------------------")
     const rpcUrl = clusterUrl(network);
+    console.log("----------------Segundo4---------------------------------------")
     const connection = new Connection(rpcUrl,"confirmed");
+    console.log("----------------Segundo5---------------------------------------")
     //console.log(connection.rpcEndpoint);
     const ret = await confirmTransactionFromFrontend(connection,transaction,phantom);
     // const checks = await connection.confirmTransaction({signature:ret},'finalised');
+    console.log("----------------Segundo6---------------------------------------")
     console.log(ret);
     // console.log(checks);
     // await connection.confirmTransaction({
     //     blockhash: transaction.blockhash,
     //     signature: ret,
     //   });
+    console.log("----------------Segundo7---------------------------------------")
     connection.onSignature(ret,callback,'finalized')
+    console.log("----------------Segundo8---------------------------------------")
     return ret;
 }
 // export async function signAndConfirmTransactions(network,transactions,callback)

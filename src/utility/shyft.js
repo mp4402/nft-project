@@ -20,14 +20,26 @@ export async function confirmTransactionFromBackend(network, encodedTransaction,
 }
 
 export async function confirmTransactionFromFrontend(connection, encodedTransaction, wallet) {
+  console.log("Estos son los parametros que se están enviando:")
+  console.log(connection)
+  console.log(encodedTransaction)
+  console.log(wallet)
+  console.log("--------------------------------------------------")
+  console.log("----------------Tercero1---------------------------------------")
   console.log(encodedTransaction);
+  console.log("----------------Tercero2---------------------------------------")
   const recoveredTransaction = Transaction.from(
     Buffer.from(encodedTransaction, 'base64')
   );
+  console.log("----------------Tercero3---------------------------------------")
   const signedTx = await wallet.signTransaction(recoveredTransaction);
+  console.log(signedTx)
+  console.log(signedTx.serialize())
+  console.log("----------------Tercero4---------------------------------------")
   const confirmTransaction = await connection.sendRawTransaction(
     signedTx.serialize()
   );
+  console.log("----------------Tercero5---------------------------------------")
   return confirmTransaction;
 }
 export async function confirmTransactionsFromFrontend(connection, encodedTransactions, wallet) {

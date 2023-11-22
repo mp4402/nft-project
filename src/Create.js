@@ -212,12 +212,17 @@ const Create = () => {
           console.log(res);
           if(res.data.success === true)
           {
+            console.log("----------------paso1---------------------------------------")
             const transaction = res.data.result.encoded_transaction;
+            console.log("----------------paso2---------------------------------------")
             setMinted(res.data.result.mint);
+            console.log("----------------paso3---------------------------------------")
             const ret_result = await signAndConfirmTransaction(network,transaction,callback);
+            console.log("----------------paso4---------------------------------------")
             console.log(ret_result);
             
             //const minted = res.data.result.mint;
+            console.log("----------------paso5---------------------------------------")
             setSuccessful(true);
             // setTimeout((()=>{
             //   if(minted)
@@ -229,6 +234,7 @@ const Create = () => {
           }
           else
           {
+            console.log("###########################################sii##################################")
             setMainErr(res.data.message);
             setloading(false);
           }
@@ -257,6 +263,7 @@ const Create = () => {
 
         // Catch errors if any
         .catch((err) => {
+          console.log("###########################################sii222222##################################")
           console.warn(err);
           console.log(err.message)
           setMainErr(err.message);
