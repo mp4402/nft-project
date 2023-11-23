@@ -164,7 +164,7 @@ const SideNav = () => {
                 <img src={myListingIcon} alt="listing" />
               </div>
               <div className="col-9">
-                <p>Mis eventos en venta</p>
+                <p>Sacados a la venta</p>
               </div>
             </div>
         </Link>

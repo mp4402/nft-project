@@ -186,7 +186,7 @@ const ListedNFTs = () => {
         <div className="right-al-container mb-2">
           <div className="container-lg">
             <div className="your-listings">
-              <h2 className="section-heading">Tus entradas a eventos</h2>
+              <h2 className="section-heading">Lista de eventos: </h2>
               {mssg && (
                 <div className="pt-5 text-center">
                   <p className="p-para">{mssg}</p>

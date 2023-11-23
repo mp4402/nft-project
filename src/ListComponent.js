@@ -161,6 +161,105 @@ const ListAll = () => {
       setErrMessg('');
       setShowLister(true);
     }
+    const ask_request = (requestOptions) => {
+        fetch("https://api.shyft.to/sol/v2/nft/update", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+    const generar_entrada = async (nft_address, network) => {
+      // console.log("address: ", nft_address)
+      // console.log("network: ", network)
+      const endPoint = process.env.REACT_APP_URL_EP;
+      const xKey = process.env.REACT_APP_API_KEY.toString();
+      let url = `${endPoint}nft/read?` + "token_address=" + nft_address + "&network=" + network;
+      let data = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": xKey,
+        },
+        //   body: JSON.stringify({ network: "devnet", token_address: "" }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw Error("could not fetch the NFT data from server");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log("Fetch Status: ",data.success);
+          let attribArr = [];
+          if(Object.keys(data.result.attributes).length !== 0)
+          {
+            let i = 0;
+            
+              for (const [key, value] of Object.entries(data.result.attributes)) 
+              {
+                  //console.log("checks: ",key,value);
+                  const attribute = Object.create(null);
+                  attribute.trait_type = (typeof key === 'object')?JSON.stringify(key):key;
+                  //attribute.trait_type = key;
+                  attribute.value = (typeof value === 'object')?JSON.stringify(value):value;
+                  //attribute.value = value;
+                  attribArr[i] = attribute;
+                  i++;
+              }
+            console.log(attribArr);
+            //setnftUrl("")
+          }
+          let stop = false;
+          for (let i = 0; i < attribArr.length; i++){
+              if(attribArr[i].value === "true"){
+                stop = true
+              }
+              if (stop)
+                break;
+          }
+          if (stop){
+            return true
+          }
+          else {
+            return data; 
+          }
+                   
+          //console.log(data.result);
+        })
+        .catch((errs) => {
+          console.log(errs.message);
+          // setErrorOcc(true);
+        });
+      
+        if (data !== true){
+          // ir a la base de datos y traer el owner relacionado al mint
+          var myHeaders = new Headers();
+          myHeaders.append("x-api-key", "nztBcTuGgW70fgc0");
+          console.log("update authority", data.result.update_authority)
+          console.log("nft_address", nft_address)
+          console.log("walletId", walletId)
+          var formdata = new FormData();
+          formdata.append("network", "devnet");
+          formdata.append("update_authority_address", data.result.update_authority);
+          formdata.append("token_address", nft_address);
+          formdata.append("attributes", "[{ \"trait_type\": \"signed\", \"value\": \"true\" }]");
+          formdata.append("fee_payer", walletId);
+
+          var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+          };
+          
+          let response = await fetch("https://api.shyft.to/sol/v2/nft/update", requestOptions)
+          .then(response => response.json())
+          .then(result => {return result})
+          .catch(error => console.log('error', error));
+          console.log(response)
+          console.log(response.result.encoded_transaction)
+        }
+
+    }
     const callback = (signature,result) => {
       console.log("Signature ",signature);
       console.log("result ",result);
@@ -363,8 +462,11 @@ const ListAll = () => {
                             {(conn_wall === walletId && network==='devnet')?(mpListings.includes(nft.mint))?<div className="white-button-container-sm"><button disabled>En venta</button></div>:<div className="white-button-container-sm disabled" ><button onClick={() => lister(nft.mint,nft.name,nft.cached_image_uri)}>Vender</button></div>:""}
                            
                           </div>
+                          <div className="col-12 col-xl-6 pt-1 px-3">
+                          {(conn_wall === walletId && network==='devnet')?(mpListings.includes(nft.mint))? <></>:<div className="white-button-container-sm disabled" ><button onClick={() => generar_entrada(nft.mint, network)}>Entrar</button></div>:""}
+                          </div>
                         </div>
-                      </div>
+                      </div>  
                     </div>
                   </div>
                 ))}
