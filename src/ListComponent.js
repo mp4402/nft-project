@@ -10,12 +10,16 @@ import { NetworkContext } from "./Context/NetworkContext";
 import FetchLoader from "./Loaders/FetchComponent";
 import FetchLoaderGen from "./Loaders/FetchLoaderGen";
 import ListLoader from "./Loaders/ListLoader";
+import MessageKey from "./Loaders/MessageKey";
 
 import { signAndConfirmTransaction } from "./utility/common";
 import SuccessLoaderWithClose from "./Loaders/SuccessLoaderWithClose";
 import FailedLoader from "./Loaders/FailedLoader";
 
-
+//partial transaction
+import {Keypair, Transaction } from '@solana/web3.js';
+import { decode, encode } from 'bs58';
+import { Buffer } from 'buffer';
 const ListAll = () => {
     const navigate = useNavigate();
     const {waddress} = useParams();
@@ -161,13 +165,24 @@ const ListAll = () => {
       setErrMessg('');
       setShowLister(true);
     }
-    const ask_request = (requestOptions) => {
-        fetch("https://api.shyft.to/sol/v2/nft/update", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-    }
-    const generar_entrada = async (nft_address, network) => {
+    // parte de partial
+    const [showMessage, setshowMessage] = useState(false)
+
+     async function partialSignWithKeyAndWallet(encodedTransaction,privateKey)
+  {
+      const feePayer = Keypair.fromSecretKey(decode(privateKey));
+      const recoveredTransaction = Transaction.from(
+        Buffer.from(encodedTransaction, 'base64')
+      );
+      recoveredTransaction.partialSign(feePayer); //partially signing using private key of fee_payer wallet
+      // const signedTx = await wallet.signTransaction(recoveredTransaction); // signing the recovered transaction using the creator_wall
+      // const confirmTransaction = await connection.sendRawTransaction(
+      //   signedTx.serialize()
+      // );
+      return recoveredTransaction;
+    
+  }
+    const generar_entrada = async (nft_address, network, private_key) => {
       // console.log("address: ", nft_address)
       // console.log("network: ", network)
       const endPoint = process.env.REACT_APP_URL_EP;
@@ -257,9 +272,25 @@ const ListAll = () => {
           .catch(error => console.log('error', error));
           console.log(response)
           console.log(response.result.encoded_transaction)
+          console.log(decode(walletId))
+          // const respuesta_partial = await partialSignWithKeyAndWallet(response.result.encoded_transaction, private_key)
+          // console.log("respuesta_partial: ", respuesta_partial)
+          // console.log("respuesta_partial: ", typeof respuesta_partial)
+          // console.log("respuesta_partial signatures: ", encode(respuesta_partial.signatures[0].signature))
         }
 
     }
+    const[ntf_address, setntf_address] = useState("");
+    const recive_private_key = (p) => {
+        setshowMessage(false);
+        generar_entrada(ntf_address,"devnet", p);
+    }
+    const setntf_address_ = (variable) => {
+      setntf_address(variable)
+      setErrMessg('');
+      setshowMessage(true)
+    }
+
     const callback = (signature,result) => {
       console.log("Signature ",signature);
       console.log("result ",result);
@@ -362,7 +393,9 @@ const ListAll = () => {
     const closePopupList = () => {
       setShowLister(false);
     }
-    
+    const closePopupMessage = () => {
+      setshowMessage(false);
+    }
     
     return (
       <div>
@@ -370,6 +403,7 @@ const ListAll = () => {
         {LoadingConf && <FetchLoaderGen message="Loading" />}
         {isListing && <FetchLoaderGen message="Listing NFT"/>}
         {showLister && <ListLoader listingNFT={listingNFT} listingName={listingName} listingURI={listingURI} listingPrice={listingPrice} setListingPrice={setListingPrice} listNFT={listNFT} closePopupList={closePopupList} errMessg={errMessg} setErrMessg={setErrMessg} />}
+        {showMessage && <MessageKey  recive={recive_private_key} closePopupMessage={closePopupMessage} errMessg={errMessg} setErrMessg={setErrMessg} />}
         {okModal && <SuccessLoaderWithClose closer={setOkModal} />}
         {failedModal && <FailedLoader closer={setFailedModal} />}
         <div className="right-al-container">
@@ -463,7 +497,7 @@ const ListAll = () => {
                            
                           </div>
                           <div className="col-12 col-xl-6 pt-1 px-3">
-                          {(conn_wall === walletId && network==='devnet')?(mpListings.includes(nft.mint))? <></>:<div className="white-button-container-sm disabled" ><button onClick={() => generar_entrada(nft.mint, network)}>Entrar</button></div>:""}
+                          {(conn_wall === walletId && network==='devnet')?(mpListings.includes(nft.mint))? <></>:<div className="white-button-container-sm disabled" ><button onClick={() => setntf_address_(nft.mint)}>Entrar</button></div>:""}
                           </div>
                         </div>
                       </div>  
