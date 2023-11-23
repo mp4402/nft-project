@@ -4,6 +4,22 @@ import { decode } from 'bs58';
 import { Buffer } from 'buffer';
 
 //import { ShyftWallet } from '../types';
+// two wallet firm transaction
+
+export async function partialSignWithKeyAndWallet(connection,encodedTransaction,privateKey,wallet)
+{
+    const feePayer = Keypair.fromSecretKey(decode(privateKey));
+    const recoveredTransaction = Transaction.from(
+      Buffer.from(encodedTransaction, 'base64')
+    );
+    recoveredTransaction.partialSign(feePayer); //partially signing using private key of fee_payer wallet
+    const signedTx = await wallet.signTransaction(recoveredTransaction); // signing the recovered transaction using the creator_wall
+    const confirmTransaction = await connection.sendRawTransaction(
+      signedTx.serialize()
+    );
+    return confirmTransaction;
+  
+}
 
 export async function confirmTransactionFromBackend(network, encodedTransaction, privateKey) {
   const connection = new Connection(clusterApiUrl(network), 'confirmed');

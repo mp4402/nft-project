@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState,useContext } from "react";
 import { ReactSession } from "react-client-session";
 import { useNavigate,useParams,Link } from "react-router-dom";
-import QRCode from 'react-qr-code';
 
 import { WalletContext } from "./Context/WalletContext";
 import { NetworkContext } from "./Context/NetworkContext";
@@ -11,6 +10,7 @@ import FetchLoader from "./Loaders/FetchComponent";
 import FetchLoaderGen from "./Loaders/FetchLoaderGen";
 import ListLoader from "./Loaders/ListLoader";
 import MessageKey from "./Loaders/MessageKey";
+import QrCodeShow from "./Loaders/QrCodeShow";
 
 import { signAndConfirmTransaction } from "./utility/common";
 import SuccessLoaderWithClose from "./Loaders/SuccessLoaderWithClose";
@@ -167,6 +167,8 @@ const ListAll = () => {
     }
     // parte de partial
     const [showMessage, setshowMessage] = useState(false)
+    const [showQr, setShowQR] = useState(false)
+    const [value_qr, setValueQR] = useState("");
 
      async function partialSignWithKeyAndWallet(encodedTransaction,privateKey)
   {
@@ -273,18 +275,10 @@ const ListAll = () => {
           console.log(response)
           console.log(response.result.encoded_transaction)
           console.log(decode(walletId))
-          //Código para generar un QR
-          /*<QRCode
-          title="QRentrada"
-          value={value}
-          bgColor={'#FFFFFF'}
-          fgColor={'#000000'}
-          size={256}
-          />*/
-          // const respuesta_partial = await partialSignWithKeyAndWallet(response.result.encoded_transaction, private_key)
-          // console.log("respuesta_partial: ", respuesta_partial)
-          // console.log("respuesta_partial: ", typeof respuesta_partial)
-          // console.log("respuesta_partial signatures: ", encode(respuesta_partial.signatures[0].signature))
+          let link = "http://localhost:3000/firm?encoded=" + response.result.encoded_transaction + "&private=" + private_key;
+          setValueQR(link);
+          setErrMessg('');
+          setShowQR(true)
         }
 
     }
@@ -404,6 +398,9 @@ const ListAll = () => {
     const closePopupMessage = () => {
       setshowMessage(false);
     }
+    const closePopupQR = () => {
+      setShowQR(false);
+    }
     
     return (
       <div>
@@ -412,6 +409,7 @@ const ListAll = () => {
         {isListing && <FetchLoaderGen message="Listing NFT"/>}
         {showLister && <ListLoader listingNFT={listingNFT} listingName={listingName} listingURI={listingURI} listingPrice={listingPrice} setListingPrice={setListingPrice} listNFT={listNFT} closePopupList={closePopupList} errMessg={errMessg} setErrMessg={setErrMessg} />}
         {showMessage && <MessageKey  recive={recive_private_key} closePopupMessage={closePopupMessage} errMessg={errMessg} setErrMessg={setErrMessg} />}
+        {showQr && <QrCodeShow  value={value_qr} closePopupMessage={closePopupQR} errMessg={errMessg} setErrMessg={setErrMessg} />}
         {okModal && <SuccessLoaderWithClose closer={setOkModal} />}
         {failedModal && <FailedLoader closer={setFailedModal} />}
         <div className="right-al-container">

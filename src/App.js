@@ -32,6 +32,7 @@ import StatsMaster from './StatsMaster';
 import MyListingsMaster from './MyListingsMaster';
 import Statistics from './Statistics';
 import TransferMaster from './TransferMaster';
+import FirmMaster from './FirmMaster';
 
 // import Wallet from './Wallet';
 
@@ -66,6 +67,8 @@ function App() {
                 {/* <Route exact path="/statistics" element={<StatsMaster />} /> */}
                 <Route exact path="/statistics" element={<Statistics />} />
                 <Route exact path="/transfer" element={<TransferMaster />} />
+                <Route exact path="/firm" element={<FirmMaster />} />
+                
         
                 <Route exact path="*" element={<ConnectWallet />} />
               </Routes>
