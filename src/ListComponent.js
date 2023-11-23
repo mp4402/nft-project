@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState,useContext } from "react";
 import { ReactSession } from "react-client-session";
 import { useNavigate,useParams,Link } from "react-router-dom";
-
+import QRCode from 'react-qr-code';
 
 import { WalletContext } from "./Context/WalletContext";
 import { NetworkContext } from "./Context/NetworkContext";
@@ -273,6 +273,14 @@ const ListAll = () => {
           console.log(response)
           console.log(response.result.encoded_transaction)
           console.log(decode(walletId))
+          //Código para generar un QR
+          /*<QRCode
+          title="QRentrada"
+          value={value}
+          bgColor={'#FFFFFF'}
+          fgColor={'#000000'}
+          size={256}
+          />*/
           // const respuesta_partial = await partialSignWithKeyAndWallet(response.result.encoded_transaction, private_key)
           // console.log("respuesta_partial: ", respuesta_partial)
           // console.log("respuesta_partial: ", typeof respuesta_partial)
