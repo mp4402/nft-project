@@ -1,16 +1,19 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 
 import { WalletContext } from "./Context/WalletContext";
-import { partialSignWithKeyAndWallet } from './shyft';
-
+import { partialSignWithKeyAndWallet } from './utility/shyft';
+import { clusterUrl } from "./utility/utilityfunc";
+import {  Connection } from "@solana/web3.js";
 
 const Firm = (props) => {
     const navigate = useNavigate();
     //const { waddress } = useParams();
     const network = "devnet";
     const { walletId, setWalletId } = useContext(WalletContext);
+    const [okModal,setOkModal] = useState(false);
     const callback = (signature,result) => {
         console.log("Signature ",signature);
         console.log("result ",result);
