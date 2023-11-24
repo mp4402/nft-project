@@ -349,7 +349,21 @@ const GetDetails = () => {
                                 <p className="p-para-light">
                                     {sym}
                                 </p>
+
+
+
+                                <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0" nonce="sRwQp2GX"></script>
+                                <h6 className="p-para-headings">Compartir</h6>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnfts.shyft.to%2Fmarketplace&amp;src=sdkpreparse" target="_blank">
+                                <img src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-transparent-png.png" alt="Logo de Facebook" width="30px" />
+                                </a>
+                                <a>    </a>
                                 
+                                <a href="https://www.linkedin.com/shareArticle?title=No%20social%20share%20button%20for%20Instagram.%20Why%20is%20that%3F&amp;url=https://nfts.shyft.to/marketplace" aria-label="LinkedIn" target="_blank" class="ns-button linkedin" rel="nofollow noopener noreferrer"><span class="ns-button-wrapper ns-button-block ns-rounded"><span class="ns-button-icon ns-button-block"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="30px"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg></span><span class="ns-button-label ns-button-block"></span></span></a>
+                                
+                                
+
                                 <h6 className="p-para-headings">Details</h6>
                                 <div className="details-table">
                                     <div className="row">
@@ -365,6 +379,7 @@ const GetDetails = () => {
                                         <div className="col-8 text-end" style={{wordWrap: "break-word"}}><a href={`https://explorer.solana.com/address/${ownAddr}?cluster=${networkParams[1]}`} target="_blank" className="no-decor" rel="noreferrer">{ownAddr}</a></div>
                                     </div>
                                 </div>
+
 
                                 <h6 className="p-para-headings">Attributes</h6>
                                 <div id="attr" className="details-table">
@@ -385,6 +400,8 @@ const GetDetails = () => {
                                     }
                                     
                                 </div>
+
+                                
                                 
                                 
                                 {/* {
