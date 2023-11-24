@@ -275,7 +275,7 @@ const ListAll = () => {
           console.log(response)
           console.log(response.result.encoded_transaction)
           console.log(decode(walletId))
-          let link = "http://localhost:3000/firm?encoded=" + response.result.encoded_transaction + "&private=" + private_key;
+          let link = "https://3439-200-0-176-84.ngrok-free.app/firm?encoded=" + response.result.encoded_transaction + "&private=" + private_key;
           setValueQR(link);
           setErrMessg('');
           setShowQR(true)

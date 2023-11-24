@@ -7,9 +7,12 @@ const FirmMaster = () => {
     const queryParameters = new URLSearchParams(window.location.search)
     const encoded = queryParameters.get("encoded")
     const private_key = queryParameters.get("private")
+    console.log("encoded: ", encoded)
+    console.log("private_key: ", private_key)
+    let link = "/firm?encoded=" + encoded + "&private=" + private_key
     const { walletId } = useContext(WalletContext); 
     if(!walletId)
-        return ( <ConnectWalletCreate heading="Firm transaction" subHeading="Connect your wallet to firm transaction" navigateTo="/firm" /> );
+        return ( <ConnectWalletCreate heading="Firm transaction" subHeading="Connect your wallet to firm transaction" navigateTo={link}/> );
     else
         return ( <Firm enconded={encoded} priv={private_key}/>);
 }
