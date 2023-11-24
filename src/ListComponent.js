@@ -173,6 +173,7 @@ const ListAll = () => {
       // console.log("address: ", nft_address)
       // console.log("network: ", network)
       const endPoint = process.env.REACT_APP_URL_EP;
+      const endPoint_QR = process.env.REACT_APP_URL_QR;
       const xKey = process.env.REACT_APP_API_KEY.toString();
       let url = `${endPoint}nft/read?` + "token_address=" + nft_address + "&network=" + network;
       let data = await fetch(url, {
@@ -260,7 +261,7 @@ const ListAll = () => {
           console.log(response)
           console.log(response.result.encoded_transaction)
           console.log(decode(walletId))
-          let link = "https://4d07-181-209-233-182.ngrok-free.app/firm?encoded=" + response.result.encoded_transaction + "&private=" + private_key;
+          let link = endPoint_QR + response.result.encoded_transaction + "&private=" + private_key;
           setValueQR(link);
           setErrMessg('');
           setShowQR(true)
