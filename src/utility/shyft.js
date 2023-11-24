@@ -9,14 +9,28 @@ import { Buffer } from 'buffer';
 export async function partialSignWithKeyAndWallet(connection,encodedTransaction,privateKey,wallet)
 {
     const feePayer = Keypair.fromSecretKey(decode(privateKey));
+    console.log("el encodedTransaction: ", typeof encodedTransaction)
+    console.log(encodedTransaction)
+    encodedTransaction = encodedTransaction.replace(/\t/g, '+');
+    encodedTransaction = encodedTransaction.replace(/\s/g, '+');
+    console.log("------")
+    console.log(encodedTransaction)
     const recoveredTransaction = Transaction.from(
       Buffer.from(encodedTransaction, 'base64')
     );
     recoveredTransaction.partialSign(feePayer); //partially signing using private key of fee_payer wallet
     const signedTx = await wallet.signTransaction(recoveredTransaction); // signing the recovered transaction using the creator_wall
-    const confirmTransaction = await connection.sendRawTransaction(
-      signedTx.serialize()
-    );
+    const blockhashResponse = await connection.getLatestBlockhashAndContext();
+    const lastValidBlockHeight = blockhashResponse.context.slot + 150;
+    const rawTransaction = signedTx.serialize();
+    let blockheight = await connection.getBlockHeight();
+    let confirmTransaction;
+    while (blockheight < lastValidBlockHeight) {
+      confirmTransaction = await connection.sendRawTransaction(rawTransaction, {
+        skipPreflight: true,
+      });
+      blockheight = await connection.getBlockHeight();
+    }
     return confirmTransaction;
   
 }

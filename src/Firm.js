@@ -40,6 +40,8 @@ const Firm = (props) => {
             await phantom.connect();
             const rpcUrl = clusterUrl(network);
             const connection = new Connection(rpcUrl,"confirmed");
+            console.log("el transaction: ", typeof transaction)
+            console.log("el transaction: ", transaction)
             const ret = await partialSignWithKeyAndWallet(connection,transaction,private_key,phantom);
             const checks = await connection.confirmTransaction({signature:ret},'finalised');
             console.log("el ret",ret);
@@ -51,7 +53,9 @@ const Firm = (props) => {
             navigate('/');
         }
         else{
-            firm_transaction(network, props.encoded, props.private_key,callback)
+            console.log("el tipo: ", typeof props.priv)
+            console.log("el enconded: ", typeof props.enconded)
+            firm_transaction(network, props.enconded, props.priv,callback)
         }
     }, []);   
     

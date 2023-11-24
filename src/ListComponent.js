@@ -169,21 +169,6 @@ const ListAll = () => {
     const [showMessage, setshowMessage] = useState(false)
     const [showQr, setShowQR] = useState(false)
     const [value_qr, setValueQR] = useState("");
-
-     async function partialSignWithKeyAndWallet(encodedTransaction,privateKey)
-  {
-      const feePayer = Keypair.fromSecretKey(decode(privateKey));
-      const recoveredTransaction = Transaction.from(
-        Buffer.from(encodedTransaction, 'base64')
-      );
-      recoveredTransaction.partialSign(feePayer); //partially signing using private key of fee_payer wallet
-      // const signedTx = await wallet.signTransaction(recoveredTransaction); // signing the recovered transaction using the creator_wall
-      // const confirmTransaction = await connection.sendRawTransaction(
-      //   signedTx.serialize()
-      // );
-      return recoveredTransaction;
-    
-  }
     const generar_entrada = async (nft_address, network, private_key) => {
       // console.log("address: ", nft_address)
       // console.log("network: ", network)
@@ -275,7 +260,7 @@ const ListAll = () => {
           console.log(response)
           console.log(response.result.encoded_transaction)
           console.log(decode(walletId))
-          let link = "https://3439-200-0-176-84.ngrok-free.app/firm?encoded=" + response.result.encoded_transaction + "&private=" + private_key;
+          let link = "https://4d07-181-209-233-182.ngrok-free.app/firm?encoded=" + response.result.encoded_transaction + "&private=" + private_key;
           setValueQR(link);
           setErrMessg('');
           setShowQR(true)
